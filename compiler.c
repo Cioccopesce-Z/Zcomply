@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define MAX_LINE 1024
 
@@ -14,7 +15,6 @@ int var_count_c=0;
 int program_size=0;
 int r[5];
 
-
 // funzioni utili
 
 typedef struct {
@@ -23,6 +23,12 @@ typedef struct {
 } istruzione;
 
 istruzione program[MAX_LINE];
+
+
+//pre declared function
+void execute(istruzione instr);
+void interpretate();
+
 
 typedef struct {
 	char name[16];
