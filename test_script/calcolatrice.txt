@@ -1,0 +1,56 @@
+001 debug off
+002 unix yes
+003 decl int scelta 0
+004 decl int a 0
+005 decl int b 0
+006 decl int risultato 0
+010 >// LOOP PRINCIPALE
+011 expel_c "cp"
+012 expel_c "=== CALCOLATRICE ==="
+013 expel_c "cp"
+014 expel_c "1 - Somma"
+015 expel_c "cp"
+016 expel_c "2 - Sottrazione"
+017 expel_c "cp"
+018 expel_c "3 - Moltiplicazione"
+019 expel_c "cp"
+020 expel_c "4 - Divisione"
+021 expel_c "cp"
+022 expel_c "0 - Esci"
+023 expel_c "cp"
+024 expel_c "Scelta: "
+025 input_n scelta
+026 if(scelta = 0) 2
+027 expel_c "Uscita..."
+028 kill
+029 expel_c "Primo numero: "
+030 input_n a
+031 expel_c "Secondo numero: "
+032 input_n b
+033 if(scelta = 1) 3
+034 add to a b
+035 mov a to risultato
+036 goto 060
+037 if(scelta = 2) 3
+038 subb from a b
+039 mov a to risultato
+040 goto 060
+041 if(scelta = 3) 3
+042 times a by b
+043 mov a to risultato
+044 goto 060
+045 if(scelta = 4) 6
+046 if(b = 0) 3
+047 expel_c "Errore: divisione per zero"
+048 expel_c "cp"
+049 goto 010
+050 divide a by b
+051 mov a to risultato
+052 goto 060
+053 expel_c "Scelta non valida"
+054 expel_c "cp"
+055 goto 010
+060 expel_c "Risultato: "
+061 expel_n risultato
+062 expel_c "cp"
+063 goto 010

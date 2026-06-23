@@ -1,0 +1,38 @@
+001 debug off
+002 unix yes
+003 decl int h 6
+004 decl int m 58
+005 decl int s 0
+006 >// LOOP PRINCIPALE
+007 expel_c "cp"
+008 if(h < 10) 1
+009 expel_c "0"
+010 expel_n h
+011 expel_c ":"
+012 if(m < 10) 1
+013 expel_c "0"
+014 expel_n m
+015 expel_c ":"
+016 if(s < 10) 1
+017 expel_c "0"
+018 expel_n s
+019 expel_c "cp"
+020 delay 1s
+021 add to s 1
+022 if(s = 60) 1
+023 goto 030
+024 goto 040
+025 >// incremento minuti
+030 mov 0 to s
+031 add to m 1
+032 if(m = 60) 1
+033 goto 050
+034 goto 040
+035 >// incremento ore
+050 mov 0 to m
+051 add to h 1
+052 if(h = 24) 1
+053 mov 0 to h
+054 goto 040
+040 cls
+041 goto 007

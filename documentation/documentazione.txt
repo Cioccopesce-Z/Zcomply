@@ -1,0 +1,57 @@
+=========================================
+		PREMESSE
+=========================================
+--tutte le variabili sono globali e intere
+--i registri sono delle variabili predichiarate
+--massimo 5(0 - 4) registri anche per codifica ascii(expel_c)
+--xxx sta per il numero della riga su cui si trova il comando
+--la prima riga è (non obbligatoriamente) debug on/off e unix yes/no
+
+=========================================
+		FUNZIONI
+=========================================
+
+xxx debug on/off attiva o disatiiva il debug
+
+xxx unix yes/no indica se il sistema su cui gira è linux o mac (yes) o windows (no)
+
+xxx if(variabile/register =\>\< variabile/register/value) N (numero di istruzioni da saltare se if non è vero) (se non definito è uguale a uno)
+
+xxx while(rX/variabile <>= rX/variabile) N number of instruction to execute 
+
+xxx for(rX/variabile <>= rX/variabile/number) N number of instruction to execute 
+  |_ xxx for( N to N) N number of instruction to execute 
+
+xxx goto xxx
+
+xxx mov register\value/variabile to register/variabile
+
+xxx expel_n register\variabile
+
+xxx expel_c register/variabile-N/testo/variabile-STR (compreso tra "", caratteri speciali: cp = a capo)
+
+xxx decl int(numero)/char(carattere o stringa) variabile value(se non specificato è 0)/testo (tra "")
+
+xxx kill 
+
+xxx delay Ns / Nms (N indica il numero di seccondi o millisecondi)
+
+xxx input_n register/variabile
+
+xxx add to register1/variabile register2/value/variabile
+
+xxx subb from register1/variabile register2/value/variabile
+
+xxx divide register1/variabile by register2/value/variabile
+
+xxx times register1/variabile register2/value/variabile
+
+xxx swap register1/variabile register3/variabile
+
+xxx loadscript name_of_the_file.txt (when called it take the palce of the script wrote before it)
+
+xxx function nome_funzione (valore hex) from xxx to xxx <-- not ready yet
+
+xxx connect to SSID with PSW <-- not ready yet
+
+xxx >// commento

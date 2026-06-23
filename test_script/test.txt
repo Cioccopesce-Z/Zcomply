@@ -1,0 +1,55 @@
+001 debug off
+002 unix yes
+003 >// ==========================
+004 >// TEST GENERALE FOR / WHILE
+005 >// ==========================
+
+006 decl int i 0
+007 decl int j 0
+008 decl int k 0
+
+009 expel_c "TEST FOR (i 0 to 4)"
+010 expel_c "cp"
+
+011 for(i 0 to 4) 3
+012 expel_c "i = "
+013 expel_n i
+014 expel_c "cp"
+
+015 expel_c "cp"
+
+016 expel_c "TEST FOR DECRESCENTE (i 4 to 0)"
+017 expel_c "cp"
+
+018 for(i 4 to 0) 3
+019 expel_c "i = "
+020 expel_n i
+021 expel_c "cp"
+
+022 expel_c "cp"
+
+023 expel_c "TEST FOR CLASSICO (j < 3)"
+024 expel_c "cp"
+
+025 mov 0 to j
+026 for(j < 3) 4
+027 expel_c "j = "
+028 expel_n j
+029 expel_c "cp"
+030 add to j 1
+
+031 expel_c "cp"
+
+032 expel_c "TEST WHILE (k < 3)"
+033 expel_c "cp"
+
+034 mov 0 to k
+035 while(k < 3) 4
+036 expel_c "k = "
+037 expel_n k
+038 expel_c "cp"
+039 add to k 1
+
+040 expel_c "cp"
+041 expel_c "FINE TEST"
+042 expel_c "cp"

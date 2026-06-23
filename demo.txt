@@ -1,0 +1,80 @@
+001 debug off
+002 unix yes
+003 >// ==============================
+004 >// DEMO COMPILATORE CUSTOM
+005 >// ==============================
+006 decl int counter 0
+007 decl int limit 5
+008 decl int temp 0
+009 decl char titolo "DIMOSTRAZIONE COMPILATORE"
+010 decl char linea "-------------------"
+011 expel_c titolo
+012 expel_c "cp"
+013 expel_c linea
+014 expel_c "cp"
+015 delay 500ms
+016 expel_c "Ciclo FOR:"
+017 expel_c "cp"
+018 for(counter 0 to 5) 4
+019 expel_c "Valore counter: "
+020 expel_n counter
+021 expel_c "cp"
+022 delay 300ms
+023 expel_c "cp"
+024 expel_c "Operazioni matematiche:"
+025 expel_c "cp"
+026 mov 10 to counter
+027 add to counter 5
+028 expel_c "10 + 5 = "
+029 expel_n counter
+030 expel_c "cp"
+031 subb from counter 3
+032 expel_c "15 - 3 = "
+033 expel_n counter
+034 expel_c "cp"
+035 times counter by 2
+036 expel_c "12 * 2 = "
+037 expel_n counter
+038 expel_c "cp"
+039 divide counter by 4
+040 expel_c "24 / 4 = "
+041 expel_n counter
+042 expel_c "cp"
+043 delay 500ms
+044 expel_c "cp"
+045 expel_c "Test IF:"
+046 expel_c "cp"
+047 if(counter = 6) 2
+048 expel_c "Counter NON e' 6"
+049 goto 051
+050 expel_c "Counter e' 6"
+051 expel_c "cp"
+052 expel_c "Ciclo WHILE:"
+053 expel_c "cp"
+054 mov 0 to temp
+055 while(temp < 3) 4
+056 expel_c "temp = "
+057 expel_n temp
+058 expel_c "cp"
+059 add to temp 1
+060 delay 500ms
+061 expel_c "cp"
+062 expel_c "Test SWAP:"
+063 expel_c "cp"
+064 mov 100 to counter
+065 mov 200 to temp
+066 swap counter temp
+067 expel_c "counter: "
+068 expel_n counter
+069 expel_c "cp"
+070 expel_c "temp: "
+071 expel_n temp
+072 expel_c "cp"
+073 delay 500ms
+074 expel_c "cp"
+075 expel_c linea
+076 expel_c "cp"
+077 expel_c "FINE DIMOSTRAZIONE"
+078 expel_c "cp"
+079 expel_c linea
+080 expel_c "cp"
