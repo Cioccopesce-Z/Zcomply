@@ -760,119 +760,114 @@ void exec_goto(char *text) {
 void exec_while(char *text) {
 
     int rd, rs, body;
-	char varname[16], varname2[16];
+    char varname[16], varname2[16];
     char simbol[2];
 
-	//rX rY
+    //rX rY
     if (sscanf(text, "while(r%d %1[=<>] r%d) %d", &rd, simbol, &rs, &body) == 4) {
-
         int while_ip = ip;
-
         while (
             (simbol[0] == '=' && r[rd] == r[rs]) ||
             (simbol[0] == '<' && r[rd] < r[rs]) ||
             (simbol[0] == '>' && r[rd] > r[rs])
         ) {
             ip = while_ip + 1;
-
-            for (int i = 0; i < body; i++) {
-                execute(program[ip]);
-                ip++;
-            }
+            for (int i = 0; i < body; i++) { execute(program[ip]); ip++; }
         }
-
         ip = while_ip + body;
         skip = 0;
+        return;
     }
 
-	//rX var
-	if(sscanf(text, "while(r%d %1[=<>] %15s) %d", &rd, simbol, varname2, &body) == 4) {
-	
-		int *p = get_var(varname2);
-		if (!p) {
-			printf("Variabile %s non dichiarata\n", varname2);
-			return;
-		}
+    //rX N
+    if (sscanf(text, "while(r%d %1[=<>] %d) %d", &rd, simbol, &rs, &body) == 4) {
+        int while_ip = ip;
+        while (
+            (simbol[0] == '=' && r[rd] == rs) ||
+            (simbol[0] == '<' && r[rd] < rs) ||
+            (simbol[0] == '>' && r[rd] > rs)
+        ) {
+            ip = while_ip + 1;
+            for (int i = 0; i < body; i++) { execute(program[ip]); ip++; }
+        }
+        ip = while_ip + body;
+        skip = 0;
+        return;
+    }
 
-		int while_ip = ip;
+    //rX var
+    if (sscanf(text, "while(r%d %1[=<>] %15s) %d", &rd, simbol, varname2, &body) == 4) {
+        int *p = get_var(varname2);
+        if (!p) { printf("Variabile %s non dichiarata\n", varname2); return; }
+        int while_ip = ip;
+        while (
+            (simbol[0] == '=' && r[rd] == *p) ||
+            (simbol[0] == '<' && r[rd] < *p) ||
+            (simbol[0] == '>' && r[rd] > *p)
+        ) {
+            ip = while_ip + 1;
+            for (int i = 0; i < body; i++) { execute(program[ip]); ip++; }
+        }
+        ip = while_ip + body;
+        skip = 0;
+        return;
+    }
 
-		while (
-			(simbol[0] == '=' && r[rd] == *p) ||
-			(simbol[0] == '<' && r[rd] < *p) ||
-			(simbol[0] == '>' && r[rd] > *p)
-		) {
-			ip = while_ip + 1;
+    //var rX
+    if (sscanf(text, "while(%15s %1[=<>] r%d) %d", varname, simbol, &rd, &body) == 4) {
+        int *p = get_var(varname);
+        if (!p) { printf("Variabile %s non dichiarata\n", varname); return; }
+        int while_ip = ip;
+        while (
+            (simbol[0] == '=' && *p == r[rd]) ||
+            (simbol[0] == '<' && *p < r[rd]) ||
+            (simbol[0] == '>' && *p > r[rd])
+        ) {
+            ip = while_ip + 1;
+            for (int i = 0; i < body; i++) { execute(program[ip]); ip++; }
+        }
+        ip = while_ip + body;
+        skip = 0;
+        return;
+    }
 
-			for (int i = 0; i < body; i++) {
-				execute(program[ip]);
-				ip++;
-			}
-		}
+    //var N
+    if (sscanf(text, "while(%15s %1[=<>] %d) %d", varname, simbol, &rs, &body) == 4) {
+        int *v = get_var(varname);
+        if (!v) { printf("Variabile %s non dichiarata\n", varname); return; }
+        int while_ip = ip;
+        while (
+            (simbol[0] == '=' && *v == rs) ||
+            (simbol[0] == '<' && *v < rs) ||
+            (simbol[0] == '>' && *v > rs)
+        ) {
+            ip = while_ip + 1;
+            for (int i = 0; i < body; i++) { execute(program[ip]); ip++; }
+        }
+        ip = while_ip + body;
+        skip = 0;
+        return;
+    }
 
-		ip = while_ip + body;
-		skip = 0;
-	}
-
-	//var rX
-	if(sscanf(text, "while(%15s %1[=<>] r%d) %d", varname, simbol, &rd, &body) == 4) {
-	
-		int *p = get_var(varname);
-		
-		if (!p) {
-			printf("Variabile %s non dichiarata\n", varname);
-			return;
-		}
-
-		int while_ip = ip;
-
-		while (
-			(simbol[0] == '=' && *p == r[rd]) ||
-			(simbol[0] == '<' && *p < r[rd]) ||
-			(simbol[0] == '>' && *p > r[rd])
-		) {
-			ip = while_ip + 1;
-
-			for (int i = 0; i < body; i++) {
-				execute(program[ip]);
-				ip++;
-			}
-		}
-
-		ip = while_ip + body;
-		skip = 0;
-	}
-
-	//var var
-	if(sscanf(text, "while(%15s %1[=<>] %15s) %d", varname, simbol, varname2, &body) == 4) {
-		int *v = get_var(varname);
-		int *p = get_var(varname2);
-		if (!v) {
-			printf("Variabile %s non dichiarata\n", varname);
-			return;
-		}
-		if (!p) {
-			printf("Variabile %s non dichiarata\n", varname2);
-			return;
-		}
-
-		int while_ip = ip;
-
-		while (
-			(simbol[0] == '=' && *v == *p) ||
-			(simbol[0] == '<' && *v < *p) ||
-			(simbol[0] == '>' && *v > *p)
-		) {
-			ip = while_ip + 1;
-
-			for (int i = 0; i < body; i++) {
-				execute(program[ip]);
-				ip++;
-			}
-		}
-
-		ip = while_ip + body;
-		skip = 0;
-	}
+    //var var
+    if (sscanf(text, "while(%15s %1[=<>] %15s) %d", varname, simbol, varname2, &body) == 4) {
+        int *v = get_var(varname);
+        int *p = get_var(varname2);
+        if (!v) { printf("Variabile %s non dichiarata\n", varname); return; }
+        if (!p) { printf("Variabile %s non dichiarata\n", varname2); return; }
+        int while_ip = ip;
+        while (
+            (simbol[0] == '=' && *v == *p) ||
+            (simbol[0] == '<' && *v < *p) ||
+            (simbol[0] == '>' && *v > *p)
+        ) {
+            ip = while_ip + 1;
+            for (int i = 0; i < body; i++) { execute(program[ip]); ip++; }
+        }
+        ip = while_ip + body;
+        skip = 0;
+        return;
+    }
 }
 
 void exec_for(char *text) {
@@ -983,7 +978,7 @@ void exec_for(char *text) {
 	}
 
     //var N to N
-    if(sscanf(text, "for(%15s %d %1[=<>] %d) %d", varname, &rs, simbol, &rd, &body) == 5) {
+    if(sscanf(text, "for(%15s %d to %d) %d", varname, &rs, &rd, &body) == 4) {
         int *p = get_var(varname);
         if (!p) {
             printf("Variabile %s non dichiarata\n", varname);
@@ -992,22 +987,18 @@ void exec_for(char *text) {
 
         int for_ip = ip;
         *p = rs;
-        while (
-			(simbol[0] == '=' && *p == rd) ||
-			(simbol[0] == '<' && *p < rd) ||
-			(simbol[0] == '>' && *p > rd)
-		) {
-			ip = for_ip + 1;
-
-			for (int i = 0; i < body; i++) {
-				execute(program[ip]);
-                (*p)++;
-				ip++;
-			}
-		}
+        while (*p < rd) {
+            ip = for_ip + 1;
+            for (int i = 0; i < body; i++) {
+                execute(program[ip]);
+                ip++;
+            }
+            (*p)++;
+        }
 
         ip = for_ip + body;
         skip = 0;
+        return;
     }
 
 	//var var
@@ -1184,7 +1175,7 @@ void execute(istruzione instr) {
     else if (starts_with(instr.text, "mov")) exec_mov(instr.text);
     else if (starts_with(instr.text, "swap")) exec_swap(instr.text);
 	else if (starts_with(instr.text, "decl")) exec_decl(instr.text);
-    
+
     else if (starts_with(instr.text, "add to")) exec_add(instr.text);
     else if (starts_with(instr.text, "subb from")) exec_subb(instr.text);
     else if (starts_with(instr.text, "times")) exec_times(instr.text);
