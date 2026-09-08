@@ -34,7 +34,7 @@ xxx decl int(numero)/char(carattere o stringa) variabile value(se non specificat
 
 xxx kill 
 
-xxx delay Ns / Nms (N indica il numero di seccondi o millisecondi)
+xxx delay Ns / Nms (N indica il numero di seccondi (s) o millisecondi (ms) )
 
 xxx input_n register/variabile
 
@@ -48,7 +48,7 @@ xxx times register1/variabile register2/value/variabile
 
 xxx swap register1/variabile register3/variabile
 
-xxx loadscript name_of_the_file.txt (when called it take the palce of the script wrote before it)
+xxx loadscript name_of_the_file.txt (when called it the new script take the palce of the one wrote before it it also need to be indented)
 
 xxx function nome_funzione (valore hex) from xxx to xxx <-- not ready yet
 
